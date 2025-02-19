@@ -89,14 +89,14 @@ const IndividualDashboard = ({ individual, loading, error, onOnboard, onVerifyGD
               {statusDetails.closedReason && (<Typography><strong>Closed Reason:</strong> {statusDetails.closedReason}</Typography>)}
               {statusDetails.closedReason && (<Typography><strong>Closed Remarks:</strong> {statusDetails.closedRemarks}</Typography>)}
               {statusDetails.created && (<Typography><strong>Created:</strong> {new Date(parseInt(statusDetails.created)).toLocaleString()}</Typography>)}
-              
+              {/* result */}
               {statusDetails.dataSufficiencyDate && (<Typography><strong>Data Sufficiency Date:</strong> {statusDetails.dataSufficiencyDate}</Typography>)}
               {statusDetails.completedDate && (<Typography><strong>Completed Date:</strong> {statusDetails.completedDate}</Typography>)}
               {statusDetails.closed && (<Typography><strong>Closed:</strong> {statusDetails.closed}</Typography>)}
 
               {statusDetails.gdcReport && (
                 <Typography>
-                  <strong>GDC Report:</strong> <a href={statusDetails.gdcReport} target="_blank" rel="noopener noreferrer">Download Report</a>
+                  <strong>GDC Report:</strong> <a className="text-[#245]" href={statusDetails.gdcReport} target="_blank" rel="noopener noreferrer">Download Report</a>
                 </Typography>
               )}
             </>

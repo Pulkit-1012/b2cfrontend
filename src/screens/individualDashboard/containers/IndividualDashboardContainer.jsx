@@ -162,6 +162,7 @@
 import React, { Component } from "react";
 import { getIndividualDetails, onboardIndividual, verifyGDC, checkStatus, deleteIndividual, getVerificationList } from "../services/individualService";
 import IndividualDashboard from "../components/IndividualDashboard";
+import Alert from '@mui/material/Alert';
 
 class IndividualDashboardContainer extends Component {
   constructor(props) {
@@ -206,6 +207,9 @@ class IndividualDashboardContainer extends Component {
       const response = await onboardIndividual(userId, individualId, token);
       localStorage.setItem("onGridIndividualId", response.id);//added
       alert("Individual onboarded successfully!");
+      // <Alert variant="outlined" severity="success">
+      //   Individual onboarded successfully!
+      // </Alert>
     } catch (error) {
       alert("Individual is already onboarded!");
     }
@@ -217,7 +221,9 @@ class IndividualDashboardContainer extends Component {
     const individualId = localStorage.getItem("selectedIndividualId");
     try {
       const response = await verifyGDC(userId, individualId, token);
-      alert("GDC Verification started!");
+      <Alert variant="outlined" severity="success">
+        GDC verification started!
+      </Alert>
     } catch (error) {
       alert("Already initiated!");
     }
@@ -245,7 +251,10 @@ class IndividualDashboardContainer extends Component {
 
     try {
       await deleteIndividual(userId, token, individualId);
-      alert("Individual deleted successfully!");
+      // alert("Individual deleted successfully!");
+      <Alert variant="outlined" severity="success">
+        Individual deleted successfully!
+      </Alert>
     } catch (error) {
       alert("Failed to delete individual.");
     }
@@ -265,6 +274,9 @@ class IndividualDashboardContainer extends Component {
       const verificationArray = await getVerificationList(userId, individualId, token);
       this.setState({verificationArray});
       alert("Details fetched successfully");
+      // <Alert variant="outlined" severity="success">
+      //   Details fetched successfully!
+      // </Alert>
     }
     catch(error) {
       alert("Failed to fetch the verifications!");
