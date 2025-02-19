@@ -21,8 +21,8 @@ export const verifyGDC = async (userId, individualId, token) => {
   return response.data; //return the requestID (gdc verification ki request id)
 };
 
-export const checkStatus = async (userId, individualId, requestId, token) => {
-  const response = await axios.get(`http://localhost:8080/api/users/${userId}/individuals/${individualId}/verify-gdc/${requestId}`, {
+export const checkStatus = async (userId, individualId, token, id) => {
+  const response = await axios.get(`http://localhost:8080/api/users/${userId}/individuals/${individualId}/verify-gdc/${id}`, {
     headers: { Authorization: token }
   });
   return response.data;
@@ -36,4 +36,13 @@ export const deleteIndividual = async (userId, token, individualId) => {
     headers: { Authorization: token }
   });
   return;
+}
+
+
+export const getVerificationList = async (userId, individualId, token) => {
+  const response = await axios.get(`http://localhost:8080/api/users/${userId}/individuals/${individualId}/verifications`, {
+    headers: { Authorization: token}
+  });
+
+  return response.data;
 }

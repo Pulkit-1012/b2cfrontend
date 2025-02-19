@@ -1,9 +1,10 @@
 import React from "react";
 import { Container, Typography, Card, CardContent, Button, Box, CircularProgress, Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
 
-const IndividualDashboard = ({ individual, loading, error, onOnboard, onVerifyGDC, onCheckStatus, status,  isDialogOpen, onCloseDialog, statusDetails, onDeleteIndividual }) => {
+const IndividualDashboard = ({ individual, loading, error, onOnboard, onVerifyGDC, onCheckStatus, status,  isDialogOpen, onCloseDialog, statusDetails, onDeleteIndividual, verificationArray }) => {
   if (loading) return <CircularProgress />;
   if (error) return <Typography color="error">{error}</Typography>;
+  console.log("Thois is my array" , verificationArray);
 
   return (
     <Container maxWidth="md" sx={{ mt: 4, height: '100vh' }}>
@@ -31,6 +32,29 @@ const IndividualDashboard = ({ individual, loading, error, onOnboard, onVerifyGD
           )}
         </Box>
 
+        {/* verification list cards */}
+        <Box mt={3}>
+          <Typography variant="h6" fontWeight="bold">List Of Verifications Initiated:</Typography>
+          {individual && verificationArray && verificationArray.length > 0 ? (
+            verificationArray.map((detail, index) => (
+              <Card key={index} sx={{ boxShadow: 3, p: 2, mt: 2 }}>
+                <CardContent>
+                  <Typography><strong>Verification Type: </strong> {detail.offeringType}</Typography>
+                  <Typography><strong>Status: </strong> {detail.state}</Typography>
+                  {/* <Typography><strong>Request ID: </strong> {detail.requestId}</Typography> */}
+                  {/* {detail.date && <Typography><strong>Date:</strong> {new Date(detail.date).toLocaleDateString()}</Typography>} */}
+                  <Button variant="contained" color="success" fullWidth sx={{ mt: 2, bgcolor: '#34cccc', color: 'white', '&:hover': { bgcolor: '#2c9595' } }} onClick={() => onCheckStatus(detail.id)}>
+                    Check Status
+                  </Button>
+                </CardContent>
+              </Card>
+            ))
+          ) : (
+          <Typography variant="body1" mt={1}>No additional details available.</Typography>
+        )}
+      </Box>
+
+
         {/* Right Section: Actions */}
         <Box flex={1} ml={2}>
           <Typography variant="h6" fontWeight="bold">Actions</Typography>
@@ -40,9 +64,9 @@ const IndividualDashboard = ({ individual, loading, error, onOnboard, onVerifyGD
           <Button variant="contained" color="secondary" fullWidth sx={{ mt: 2, bgcolor: '#34cccc', color: 'white', '&:hover': { bgcolor: '#2c9595' } }} onClick={onVerifyGDC}>
             Verify GDC
           </Button>
-          <Button variant="contained" color="success" fullWidth sx={{ mt: 2, bgcolor: '#34cccc', color: 'white', '&:hover': { bgcolor: '#2c9595' } }} onClick={onCheckStatus}>
+          {/* <Button variant="contained" color="success" fullWidth sx={{ mt: 2, bgcolor: '#34cccc', color: 'white', '&:hover': { bgcolor: '#2c9595' } }} onClick={onCheckStatus}>
             Check GDC Status
-          </Button>
+          </Button> */}
           <Button variant="contained" color="error" fullWidth sx={{ mt: 2, bgcolor: '#e57373', color: 'white', '&:hover': { bgcolor: '#2c9595' } }} onClick={onDeleteIndividual}>
             Delete Individual
           </Button>

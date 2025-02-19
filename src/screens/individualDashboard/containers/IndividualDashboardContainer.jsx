@@ -160,7 +160,7 @@
 
 
 import React, { Component } from "react";
-import { getIndividualDetails, onboardIndividual, verifyGDC, checkStatus, deleteIndividual } from "../services/individualService";
+import { getIndividualDetails, onboardIndividual, verifyGDC, checkStatus, deleteIndividual, getVerificationList } from "../services/individualService";
 import IndividualDashboard from "../components/IndividualDashboard";
 
 class IndividualDashboardContainer extends Component {
@@ -179,12 +179,13 @@ class IndividualDashboardContainer extends Component {
 
   componentDidMount() {
     this.fetchIndividualDetails();
+    this.fetchVerifications();
   }
 
   fetchIndividualDetails = async () => {
     const { userId } = this.props;
     const token = sessionStorage.getItem("access_token");
-    const individualId = localStorage.getItem("selectedIndividualId"); // Get individualId from localStorage
+    const individualId = localStorage.getItem("selectedIndividualId");
     if (!individualId) return;
 
     this.setState({ loading: true });
@@ -201,53 +202,35 @@ class IndividualDashboardContainer extends Component {
     const { userId } = this.props;
     const token = sessionStorage.getItem("access_token");
     const individualId = localStorage.getItem("selectedIndividualId");
-    // const ogid = localStorage.getItem("onGridIndividualId");//added
     try {
       const response = await onboardIndividual(userId, individualId, token);
       localStorage.setItem("onGridIndividualId", response.id);//added
       alert("Individual onboarded successfully!");
     } catch (error) {
-      alert("Failed to onboard individual.");
+      alert("Individual is already onboarded!");
     }
-    // if(!ogid){
-      
-    // }
-    // else return alert("Individual has already been onboarded!");//if-else(trycatch asitis)
   };
 
   handleVerifyGDC = async () => {
     const { userId } = this.props;
     const token = sessionStorage.getItem("access_token");
     const individualId = localStorage.getItem("selectedIndividualId");
-    // const reqId = localStorage.getItem("requestId");//added
     try {
       const response = await verifyGDC(userId, individualId, token);
-      this.setState({ requestId: response.requestId });
       alert("GDC Verification started!");
     } catch (error) {
-      alert("Failed to verify GDC.");
+      alert("Already initiated!");
     }
-    // if(!reqId){
-      
-    // }
-    // else return alert("GDC verification already initiated!");
     
   };
 
-  handleCheckStatus = async () => {
+  handleCheckStatus = async (id) => {
     const { userId } = this.props;
     const token = sessionStorage.getItem("access_token");
     const individualId = localStorage.getItem("selectedIndividualId");
-    const { requestId } = this.state;
-    // const requestId = localStorage.getItem("requestId");
-
-    if (!requestId) {
-      alert("Please verify GDC first.");
-      return;
-    }
 
     try {
-      const response = await checkStatus(userId, individualId, requestId, token);
+      const response = await checkStatus(userId, individualId, token, id);
       this.setState({statusDetails: response, isDialogOpen: true})
       // alert(`Status: ${response.state}`);
     } catch (error) {
@@ -272,6 +255,23 @@ class IndividualDashboardContainer extends Component {
     this.setState({ isDialogOpen: false });
   };
 
+  
+  fetchVerifications = async () => {
+    const {userId} = this.props;
+    const token = sessionStorage.getItem("access_token");
+    const individualId = localStorage.getItem("selectedIndividualId");
+
+    try {
+      const verificationArray = await getVerificationList(userId, individualId, token);
+      this.setState({verificationArray});
+      alert("Details fetched successfully");
+    }
+    catch(error) {
+      alert("Failed to fetch the verifications!");
+    }
+  }
+
+
   render() {
     return (
       <IndividualDashboard
@@ -286,6 +286,8 @@ class IndividualDashboardContainer extends Component {
         onCloseDialog={this.handleCloseDialog}
         statusDetails={this.state.statusDetails}
         onDeleteIndividual={this.handleDeleteIndividual}
+        // handleCheckVerifications = {this.handleCheckVerifications}
+        verificationArray={this.state.verificationArray}
       />
 
     );
