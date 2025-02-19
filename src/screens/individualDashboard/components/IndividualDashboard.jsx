@@ -1,10 +1,27 @@
-import React from "react";
-import { Container, Typography, Card, CardContent, Button, Box, CircularProgress, Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
+import React, { useState } from "react";
+import { Container, Typography, Card, CardContent, Button, Box, CircularProgress, Dialog, DialogTitle, DialogContent, DialogActions, TextField } from "@mui/material";
 
-const IndividualDashboard = ({ individual, loading, error, onOnboard, onVerifyGDC, onCheckStatus, status,  isDialogOpen, onCloseDialog, statusDetails, onDeleteIndividual, verificationArray }) => {
+const IndividualDashboard = ({ individual, loading, error, onOnboard, onVerifyGDC, onCheckStatus, status,  isDialogOpen, onCloseDialog, statusDetails, onDeleteIndividual, verificationArray, onAddPan, onVerifyPan }) => {
   if (loading) return <CircularProgress />;
   if (error) return <Typography color="error">{error}</Typography>;
   console.log("Thois is my array" , verificationArray);
+
+  const [isPanDialogOpen, setIsPanDialogOpen] = useState(false);
+  const [documentUID, setDocumentUID] = useState("");
+
+  const handleAddPanClick = () => {
+    setIsPanDialogOpen(true);
+  };
+
+  const handlePanDialogClose = () => {
+    setIsPanDialogOpen(false);
+    setDocumentUID("");
+  };
+
+  const handlePanSubmit = () => {
+    onAddPan(documentUID);
+    handlePanDialogClose();
+  };
 
   return (
     <Container maxWidth="md" sx={{ mt: 4, height: '100vh' }}>
@@ -64,9 +81,15 @@ const IndividualDashboard = ({ individual, loading, error, onOnboard, onVerifyGD
           <Button variant="contained" color="secondary" fullWidth sx={{ mt: 2, bgcolor: '#34cccc', color: 'white', '&:hover': { bgcolor: '#2c9595' } }} onClick={onVerifyGDC}>
             Verify GDC
           </Button>
-          {/* <Button variant="contained" color="success" fullWidth sx={{ mt: 2, bgcolor: '#34cccc', color: 'white', '&:hover': { bgcolor: '#2c9595' } }} onClick={onCheckStatus}>
-            Check GDC Status
-          </Button> */}
+
+          <Button variant="contained" color="primary" fullWidth sx={{ mt: 2, bgcolor: '#34cccc', color: 'white', '&:hover': { bgcolor: '#2c9595' } }} onClick={handleAddPanClick}>
+            Add PAN
+          </Button>
+
+          <Button variant="contained" color="secondary" fullWidth sx={{ mt: 2, bgcolor: '#34cccc', color: 'white', '&:hover': { bgcolor: '#2c9595' } }} onClick={onVerifyPan}>
+            Verify PAN
+          </Button>
+          
           <Button variant="contained" color="error" fullWidth sx={{ mt: 2, bgcolor: '#e57373', color: 'white', '&:hover': { bgcolor: '#2c9595' } }} onClick={onDeleteIndividual}>
             Delete Individual
           </Button>
@@ -106,6 +129,31 @@ const IndividualDashboard = ({ individual, loading, error, onOnboard, onVerifyGD
           <Button onClick={onCloseDialog} color="primary">Close</Button>
         </DialogActions>
       </Dialog>
+
+      <Dialog open={isPanDialogOpen} onClose={handlePanDialogClose}>
+        <DialogTitle>Add PAN</DialogTitle>
+        <DialogContent>
+          <TextField
+            margin="dense"
+            label="Name as per Document"
+            fullWidth
+            value={individual ? individual.name : ""}
+            disabled
+          />
+          <TextField
+            margin="dense"
+            label="Document UID"
+            fullWidth
+            value={documentUID}
+            onChange={(e) => setDocumentUID(e.target.value)}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handlePanDialogClose} color="primary">Cancel</Button>
+          <Button onClick={handlePanSubmit} color="primary">Submit</Button>
+        </DialogActions>
+      </Dialog>
+
     </Container>
   );
 };

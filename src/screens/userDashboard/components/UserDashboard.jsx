@@ -113,7 +113,24 @@ const UserDashboard = ({ user, individuals, onAddIndividual }) => {
               <MenuItem value="F">F</MenuItem>
             </TextField>
             <TextField label="Phone" name="phone" value={formData.phone} onChange={handleChange} error={!!errors.phone} helperText={errors.phone} fullWidth />
-            <TextField label="Profession ID" name="professionId" value={formData.professionId} onChange={handleChange} error={!!errors.professionId} helperText={errors.professionId} fullWidth />
+            {/* <TextField label="Profession ID" name="professionId" value={formData.professionId} onChange={handleChange} error={!!errors.professionId} helperText={errors.professionId} fullWidth /> */}
+            <TextField select label="Profession ID" name="professionId" value={formData.professionId} onChange={handleChange} error={!!errors.professionId} helperText={errors.professionId} fullWidth >
+            <MenuItem value="1">Security Guard</MenuItem>
+            <MenuItem value="2">Maid Cleaning</MenuItem>
+            <MenuItem value="3">Maid Cooking</MenuItem>
+            <MenuItem value="4">Office Boy</MenuItem>
+            <MenuItem value="5">Delivery Personnel</MenuItem>
+            <MenuItem value="6">Hotel Staff Cleaning</MenuItem>
+            <MenuItem value="7">Carpenter</MenuItem>
+            <MenuItem value="8">Plumber</MenuItem>
+            <MenuItem value="9">Electrician</MenuItem>
+            <MenuItem value="10">Driver - Car/Jeep</MenuItem>
+            <MenuItem value="11">Painter</MenuItem>
+            <MenuItem value="12">Mason</MenuItem>
+            <MenuItem value="13">Gardener</MenuItem>
+            <MenuItem value="14">Pest Control Professional</MenuItem>
+            <MenuItem value="15">Cleaning Personnel - Home</MenuItem>
+            </TextField>
             <TextField label="Date of Birth" name="dob" type="date" value={formData.dob} onChange={handleChange} error={!!errors.dob} helperText={errors.dob} fullWidth InputLabelProps={{ shrink: true }} />
             <TextField label="Consent Text" name="consentText" value={formData.consentText} onChange={handleChange} error={!!errors.consentText} helperText={errors.consentText} fullWidth />
             <TextField label="Father's Name" name="fathersName" value={formData.fathersName} onChange={handleChange} error={!!errors.fathersName} helperText={errors.fathersName} fullWidth />

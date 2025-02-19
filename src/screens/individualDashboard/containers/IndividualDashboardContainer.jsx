@@ -161,6 +161,7 @@
 
 import React, { Component } from "react";
 import { getIndividualDetails, onboardIndividual, verifyGDC, checkStatus, deleteIndividual, getVerificationList } from "../services/individualService";
+import { addPan, verifyPan } from "../services/individualService";
 import IndividualDashboard from "../components/IndividualDashboard";
 import Alert from '@mui/material/Alert';
 
@@ -284,6 +285,36 @@ class IndividualDashboardContainer extends Component {
   }
 
 
+  handleAddPan = async (documentUID) => {
+    const { userId } = this.props;
+    const token = sessionStorage.getItem("access_token");
+    const individualId = localStorage.getItem("selectedIndividualId");
+    
+    try {
+      await addPan(userId, individualId, token, {
+        nameAsPerDocument: this.state.individual.name,
+        documentUID
+      });
+      alert("PAN added successfully!");
+    } catch (error) {
+      alert("Failed to add PAN.");
+    }
+  };
+
+  handleVerifyPan = async () => {
+    const { userId } = this.props;
+    const token = sessionStorage.getItem("access_token");
+    const individualId = localStorage.getItem("selectedIndividualId");
+    
+    try {
+      await verifyPan(userId, individualId, token);
+      alert("PAN verification initiated!");
+    } catch (error) {
+      alert("Failed to initiate PAN verification.");
+    }
+  };
+
+
   render() {
     return (
       <IndividualDashboard
@@ -300,6 +331,8 @@ class IndividualDashboardContainer extends Component {
         onDeleteIndividual={this.handleDeleteIndividual}
         // handleCheckVerifications = {this.handleCheckVerifications}
         verificationArray={this.state.verificationArray}
+        onAddPan={this.handleAddPan}
+        onVerifyPan={this.handleVerifyPan}
       />
 
     );
