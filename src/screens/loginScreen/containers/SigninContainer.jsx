@@ -52,6 +52,7 @@ class SignInContainer extends Component {
         sessionStorage.setItem('access_token', response.access_token);
         alert('Login successful!');
         this.setState({ isLoggedIn: true });
+        window.location.replace('/userDashboard'); //forced
       }
     } catch (error) {
       alert(error.message || 'Login failed.');
@@ -59,9 +60,10 @@ class SignInContainer extends Component {
   };
 
 
+
   render() {
 
-    if (this.state.isLoggedIn) {
+    if (this.state.isLoggedIn==true) {
       return <Navigate to='/userDashboard' />
     }
 
@@ -78,7 +80,7 @@ class SignInContainer extends Component {
         passwordError={this.state.passwordError}
         passwordErrorMessage={this.state.passwordErrorMessage}
       />
-
+      
     );
   }
 }

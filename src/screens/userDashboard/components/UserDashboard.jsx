@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Container, Typography, Card, CardContent, Button, Box, Stack, Dialog, DialogTitle, DialogContent, TextField, DialogActions, MenuItem } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
+
 const UserDashboard = ({ user, individuals, onAddIndividual }) => {
 
   const navigate = useNavigate();
@@ -59,7 +60,7 @@ const UserDashboard = ({ user, individuals, onAddIndividual }) => {
     <Container maxWidth="md" sx={{ mt: 4, height: '100vh' }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
         <Typography className='text-[#2c9595]' variant="h4" fontWeight="bold">
-          User Dashboard
+          { user ? `${user.userName}'s Dashboard` : 'User Dashboard'}
         </Typography>
       </Box>
 
@@ -101,7 +102,7 @@ const UserDashboard = ({ user, individuals, onAddIndividual }) => {
         </Box>
       </Stack>
 
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={open} onClose={handleClose} fullWidth maxWidth='md'>
         <DialogTitle>Add Individual</DialogTitle>
         <DialogContent>
           <Stack spacing={2} sx={{ mt: 1 }}>

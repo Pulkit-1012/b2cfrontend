@@ -1,9 +1,11 @@
 import React from 'react';
 import { Box, Button, FormControl, FormLabel, TextField, Typography, Stack, Card, Divider, Link } from '@mui/material';
+import bgImage from '../../../assets/91675.jpg'
+
 
 const SignUpComponent = ({ username, onUsernameChange, email, onEmailChange, password, onPasswordChange, handleSubmit, validateInputs, usernameError, usernameErrorMessage, emailError, emailErrorMessage, passwordError, passwordErrorMessage }) => {
   return (
-    <Stack spacing={3} alignItems="center" justifyContent="center" sx={{ height: '100vh' }}>
+    <Stack spacing={3} alignItems="center" maxWidth='100%' justifyContent="center" sx={{ height: '100vh', backgroundImage: `url(${bgImage})` }}>
       <Card variant="outlined" sx={{ p: 4, width: 400, boxShadow: 3 }}>
         <Typography variant="h4" textAlign="center" gutterBottom>Sign Up</Typography>
 

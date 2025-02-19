@@ -8,7 +8,7 @@ export const getIndividualDetails = async (userId, individualId, token) => {
 };
 
 export const onboardIndividual = async (userId, individualId, token) => {
-  await axios.post(`http://localhost:8080/api/users/${userId}/individuals/${individualId}/onboard-individual`,{}, {
+  const response = await axios.post(`http://localhost:8080/api/users/${userId}/individuals/${individualId}/onboard-individual`,{}, {
     headers: { Authorization: token }
   });
   return response.data;//contains the individualId(jo onboard hone ke baad milti hai)
@@ -27,3 +27,13 @@ export const checkStatus = async (userId, individualId, requestId, token) => {
   });
   return response.data;
 };
+
+
+export const deleteIndividual = async (userId, token, individualId) => {
+  console.log(token);
+  
+  await axios.delete(`http://localhost:8080/api/users/${userId}/individuals/${individualId}/delete`,{}, {
+    headers: { Authorization: token }
+  });
+  return;
+}

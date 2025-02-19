@@ -10,8 +10,6 @@ export const AuthProvider = ({ children }) => {
         if (!token) return null;
         try {
             const payload = JSON.parse(atob(token.split(".")[1])); // Decoding the token
-            console.log("token is : ", payload);
-            console.log(payload.userId);
             return payload.userId;
         } catch (error) {
             console.error("Failed to decode token:", error);

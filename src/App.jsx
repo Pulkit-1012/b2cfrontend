@@ -12,7 +12,7 @@ function App() {
     <AuthProvider>
       <Router>
         <Navbar />
-        <div className="pt-16 bg-[#f5f7fa]">
+        <div className="pt-16 bg-[#cacacc]" >
           <Navigation />
         </div>
       </Router>

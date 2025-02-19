@@ -1,9 +1,10 @@
 import React from 'react';
 import { Box, Button, Checkbox, FormControlLabel, FormLabel, FormControl, Link, TextField, Typography, Stack, Card, Divider } from '@mui/material';
+import bgImage from '../../../assets/91675.jpg'
 
 const SignInComponent = ({ email, onEmailChange, password, onPasswordChange, handleSubmit, emailError, validateInputs, emailErrorMessage, passwordError, passwordErrorMessage }) => {
   return (
-    <Stack spacing={3} alignItems="center" justifyContent="center" sx={{ height: '100vh', overflow: 'hidden' }}>
+    <Stack spacing={3} alignItems="center" justifyContent="center" maxWidth='100%' sx={{ height: '100vh', overflow: 'hidden', backgroundImage: `url(${bgImage})` }}>
       <Card variant="outlined" sx={{ p: 4, width: 400, boxShadow: 3 }}>
         <Typography variant="h4" textAlign="center" gutterBottom>Sign in</Typography>
 

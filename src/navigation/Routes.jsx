@@ -1,68 +1,29 @@
-import React from 'react';
-import SignInContainer from '../screens/loginScreen/containers/SigninContainer';
-import HomeScreenContainer from '../screens/homeScreen/containers/homeScreenContainer';
-import SignUpContainer from '../screens/signupScreen/containers/SignUpContainer';
-import IndividualDashboardWrapper from '../screens/individualDashboard/utils/IndividualDashboardWrapper';
-import DashboardWrapper from '../screens/userDashboard/utils/DashboardWrapper';
+import React, { Suspense } from 'react';
+import { CircularProgress, Box } from '@mui/material';
+
+// Lazy loading the components
+const SignInContainer = React.lazy(() => import('../screens/loginScreen/containers/SigninContainer'));
+const HomeScreenContainer = React.lazy(() => import('../screens/homeScreen/containers/homeScreenContainer'));
+const SignUpContainer = React.lazy(() => import('../screens/signupScreen/containers/SignUpContainer'));
+const IndividualDashboardWrapper = React.lazy(() => import('../screens/individualDashboard/utils/IndividualDashboardWrapper'));
+const DashboardWrapper = React.lazy(() => import('../screens/userDashboard/utils/DashboardWrapper'));
+
+// Fallback Component using Material UI's CircularProgress
+const Loading = () => (
+  <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+    <CircularProgress />
+  </Box>
+);
 
 // Public Routes
 export const publicRoutes = [
-  { path: '/signup', element: <SignUpContainer/> },
-  { path: '/signin', element: <SignInContainer /> },
-  { path: "/", element: <HomeScreenContainer /> }
+  { path: '/signup', element: <Suspense fallback={<Loading />}><SignUpContainer /></Suspense> },
+  { path: '/signin', element: <Suspense fallback={<Loading />}><SignInContainer /></Suspense> },
+  { path: "/", element: <Suspense fallback={<Loading />}><HomeScreenContainer /></Suspense> }
 ];
 
 // Private Routes
 export const privateRoutes = [
-  { path: '/userDashboard', element: <DashboardWrapper/> },
-  { path: '/individualDashboard', element: <IndividualDashboardWrapper /> }
+  { path: '/userDashboard', element: <Suspense fallback={<Loading />}><DashboardWrapper /></Suspense> },
+  { path: '/individualDashboard', element: <Suspense fallback={<Loading />}><IndividualDashboardWrapper /></Suspense> }
 ];
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React from 'react';
-// import HomeScreen from '../screens/homeScreen/components/HomeScreen';
-// import UserDashboard from '../screens/userDashboard/components/UserDashboard';
-// import IndividualDashboard from '../screens/individualDashboard/components/IndividualDashboard';
-
-
-// import { PublicRoute } from '../layouts/public';
-// import { PrivateRoute } from '../layouts/private';
-// import SignInComponent from '../screens/loginScreen/components/SigninComponent';
-
-
-
-// // Public Routes
-// export const publicRoutes = [
-//   { path: '/signup', element: <PublicRoute>Sign Up Component</PublicRoute> },
-//   { path: '/signin', element: <PublicRoute><SignInComponent /></PublicRoute> },
-//   { path: "/", element: <PublicRoute><HomeScreen/></PublicRoute>}
-// ]
-
-// // Private Routes
-// export const privateRoutes = [
-//   { path: '/userDashboard', element: <PrivateRoute><UserDashboard/></PrivateRoute>},
-//   { path: '/individualDashboard', element: <PrivateRoute><IndividualDashboard/></PrivateRoute>}
-// ]
