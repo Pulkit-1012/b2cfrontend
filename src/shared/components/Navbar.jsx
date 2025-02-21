@@ -2,7 +2,7 @@ import { AppBar, Toolbar, Button, Box } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../auth";
 import { useNavigate } from "react-router-dom";
-import logo from "../../assets/b2cV.jpg"; 
+import logo from "../../assets/logo.png"; 
 
 const Navbar = () => {
   const { token, logout } = useAuth();
@@ -39,9 +39,9 @@ const Navbar = () => {
                 variant="contained"
                 sx={{
                   mx: 1,
-                  bgcolor: isActive("/signup") ? "primary.main" : "gray",
-                  color: isActive("/signup") ? "white" : "black",
-                  "&:hover": { bgcolor: "gray" },
+                  bgcolor: isActive("/signup") ? "#33cccc" : "white",
+                  color: isActive("/signup") ? "white" : "#33cccc",
+                  "&:hover": { bgcolor: "#339ea4" },
                 }}>
                 Signup
               </Button>
@@ -51,11 +51,11 @@ const Navbar = () => {
                 variant="contained"
                 sx={{
                   mx: 1,
-                  bgcolor: isActive("/signin") ? "primary.main" : "gray",
-                  color: isActive("/signin") ? "white" : "black",
-                  "&:hover": { bgcolor: "gray" },
+                  bgcolor: isActive("/signin") ? "#33cccc" : "white",
+                  color: isActive("/signin") ? "white" : "#33cccc",
+                  "&:hover": { bgcolor: "#339ea4" },
                 }}>
-                Login
+                Signin
               </Button>
             </>
           ) : (
@@ -64,9 +64,9 @@ const Navbar = () => {
               variant="contained"
               sx={{
                 mx: 1,
-                bgcolor: "primary.main",
-                color: "black",
-                "&:hover": { bgcolor: "gray" },
+                bgcolor: "white",
+                color: "#33cccc",
+                "&:hover": { bgcolor: "#33cccc", color: "white" },
               }}>
               Signout
             </Button>

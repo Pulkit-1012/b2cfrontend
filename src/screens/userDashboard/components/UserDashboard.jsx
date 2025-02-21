@@ -57,25 +57,33 @@ const UserDashboard = ({ user, individuals, onAddIndividual }) => {
   };
 
   return (
-    <Container maxWidth="md" sx={{ mt: 4, height: '100vh' }}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-        <Typography className='text-[#2c9595]' variant="h4" fontWeight="bold">
-          { user ? `${user.userName}'s Dashboard` : 'User Dashboard'}
+    // <Container maxWidth="md" sx={{ mt: 4, height: '100vh' }}>
+    <Container maxWidth="md" className="mt-4 max-h-full">
+      
+      <Box className="flex items-center justify-between mt-10 py-6 px-4 md:px-8 bg-[#f5f7fa] shadow-md rounded-lg">
+        <Typography
+          variant="h4"
+          fontWeight="bold"
+          className="text-[#2c9595] drop-shadow-sm"
+        >
+          {user ? `${user.userName}'s Dashboard` : 'User Dashboard'}
         </Typography>
       </Box>
 
-      <Stack direction={{ xs: 'column', md: 'row' }} spacing={3}>
-        <Box sx={{ flex: 1 }}>
-          <Typography variant="h6" fontWeight="bold" gutterBottom>
+
+      <Stack direction={{ xs: 'column', md: 'row' }} spacing={4} className="p-4">
+        {/* User Details Section */}
+        <Box sx={{ flex: 1, p: 3, bgcolor: 'white', borderRadius: 2, boxShadow: 2 }}>
+          <Typography variant="h6" fontWeight="bold" gutterBottom className="text-[#2c9595]">
             User Details
           </Typography>
           {user && (
-            <Card sx={{ boxShadow: 3 }}>
-              <CardContent>
-                <Typography variant="body1">
+            <Card sx={{ boxShadow: 4, borderRadius: 2, overflow: 'hidden' }}>
+              <CardContent className="space-y-2">
+                <Typography variant="body1" className="text-gray-700">
                   <strong>Name:</strong> {user.userName}
                 </Typography>
-                <Typography variant="body1">
+                <Typography variant="body1" className="text-gray-700">
                   <strong>Email:</strong> {user.email}
                 </Typography>
               </CardContent>
@@ -83,24 +91,49 @@ const UserDashboard = ({ user, individuals, onAddIndividual }) => {
           )}
         </Box>
 
-        <Box sx={{ flex: 1 }}>
-          <Typography variant="h6" fontWeight="bold" gutterBottom>
+        {/* Individuals Section */}
+        <Box sx={{ flex: 1, p: 3, bgcolor: 'white', borderRadius: 2, boxShadow: 2 }}>
+          <Typography variant="h6" fontWeight="bold" gutterBottom className="text-[#2c9595]">
             Individuals
           </Typography>
           <Stack spacing={2}>
             {individuals.map((individual) => (
-              <Card key={individual.individualId} sx={{ boxShadow: 2, cursor: 'pointer' }} onClick={()=> handleIndividualClick(individual.individualId)} >
+              <Card
+                key={individual.individualId}
+                sx={{
+                  boxShadow: 3,
+                  borderRadius: 2,
+                  transition: '0.3s',
+                  '&:hover': { transform: 'scale(1.02)', boxShadow: 6 },
+                  cursor: 'pointer',
+                }}
+                onClick={() => handleIndividualClick(individual.individualId)}
+              >
                 <CardContent>
-                  <Typography>{individual.name}</Typography>
+                  <Typography className="text-gray-800">{individual.name}</Typography>
                 </CardContent>
               </Card>
             ))}
           </Stack>
-          <Button variant="contained" sx={{ mt: 2, bgcolor: '#34cccc', color: 'white' }} onClick={handleOpen}> 
+          <Button
+            variant="contained"
+            sx={{
+              mt: 3,
+              bgcolor: '#34cccc',
+              color: 'white',
+              borderRadius: 2,
+              p: 1.5,
+              fontSize: '1rem',
+              transition: '0.3s',
+              '&:hover': { bgcolor: '#2c9595', transform: 'scale(1.05)' },
+            }}
+            onClick={handleOpen}
+          >
             Add Individual
           </Button>
         </Box>
       </Stack>
+
 
       <Dialog open={open} onClose={handleClose} fullWidth maxWidth='md'>
         <DialogTitle>Add Individual</DialogTitle>
@@ -114,22 +147,22 @@ const UserDashboard = ({ user, individuals, onAddIndividual }) => {
             </TextField>
             <TextField label="Phone" name="phone" value={formData.phone} onChange={handleChange} error={!!errors.phone} helperText={errors.phone} fullWidth />
             {/* <TextField label="Profession ID" name="professionId" value={formData.professionId} onChange={handleChange} error={!!errors.professionId} helperText={errors.professionId} fullWidth /> */}
-            <TextField select label="Profession ID" name="professionId" value={formData.professionId} onChange={handleChange} error={!!errors.professionId} helperText={errors.professionId} fullWidth >
-            <MenuItem value="1">Security Guard</MenuItem>
-            <MenuItem value="2">Maid Cleaning</MenuItem>
-            <MenuItem value="3">Maid Cooking</MenuItem>
-            <MenuItem value="4">Office Boy</MenuItem>
-            <MenuItem value="5">Delivery Personnel</MenuItem>
-            <MenuItem value="6">Hotel Staff Cleaning</MenuItem>
-            <MenuItem value="7">Carpenter</MenuItem>
-            <MenuItem value="8">Plumber</MenuItem>
-            <MenuItem value="9">Electrician</MenuItem>
-            <MenuItem value="10">Driver - Car/Jeep</MenuItem>
-            <MenuItem value="11">Painter</MenuItem>
-            <MenuItem value="12">Mason</MenuItem>
-            <MenuItem value="13">Gardener</MenuItem>
-            <MenuItem value="14">Pest Control Professional</MenuItem>
-            <MenuItem value="15">Cleaning Personnel - Home</MenuItem>
+            <TextField select label="Profession" name="professionId" value={formData.professionId} onChange={handleChange} error={!!errors.professionId} helperText={errors.professionId} fullWidth >
+              <MenuItem value='8'>Plumber</MenuItem>
+              <MenuItem value='9'>Electrician</MenuItem>
+              <MenuItem value='10'>Driver - Car/Jeep</MenuItem>
+              <MenuItem value='11'>Painter</MenuItem>
+              <MenuItem value='12'>Mason</MenuItem>
+              <MenuItem value='13'>Gardener</MenuItem>
+              <MenuItem value='14'>Pest Control Professional</MenuItem>
+              <MenuItem value='15'>Cleaning Personnel - Home</MenuItem>
+              <MenuItem value='16'>Accountant</MenuItem>
+              <MenuItem value='17'>Admin Executive</MenuItem>
+              <MenuItem value='18'>Admin Supervisor</MenuItem>
+              <MenuItem value='19'>Bartender</MenuItem>
+              <MenuItem value='20'>Beautician</MenuItem>
+              <MenuItem value='21'>Call Center / BPO Executive</MenuItem>
+              <MenuItem value='22'>Call Center / BPO Supervisor</MenuItem>
             </TextField>
             <TextField label="Date of Birth" name="dob" type="date" value={formData.dob} onChange={handleChange} error={!!errors.dob} helperText={errors.dob} fullWidth InputLabelProps={{ shrink: true }} />
             <TextField label="Consent Text" name="consentText" value={formData.consentText} onChange={handleChange} error={!!errors.consentText} helperText={errors.consentText} fullWidth />

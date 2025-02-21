@@ -6,7 +6,7 @@ const SignInComponent = ({ email, onEmailChange, password, onPasswordChange, han
   return (
     <Stack spacing={3} alignItems="center" justifyContent="center" maxWidth='100%' sx={{ height: '100vh', overflow: 'hidden', backgroundImage: `url(${bgImage})` }}>
       <Card variant="outlined" sx={{ p: 4, width: 400, boxShadow: 3 }}>
-        <Typography variant="h4" textAlign="center" gutterBottom>Sign in</Typography>
+        <Typography variant="h4" textAlign="center" gutterBottom>Sign In</Typography>
 
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           <FormControl>

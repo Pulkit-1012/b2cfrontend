@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from '../../../utils/withRouter';
 import SignUpComponent from '../components/SignUpComponent';
 import { signUpApi } from './api';
+import {toast} from 'react-hot-toast';
 
 class SignUpContainer extends Component {
   
@@ -57,11 +58,11 @@ class SignUpContainer extends Component {
     try {
       const response = await signUpApi(this.state.username, this.state.email, this.state.password);
       if (response) {
-        alert('Signup successful! Please login.');
+        toast.success('Signup successful! Please login.');
         this.props.navigate('/signin');
       }
     } catch (error) {
-      alert(error.message || 'Signup failed.');
+      toast.error(error.message || 'Signup failed.');
     }
   };
   

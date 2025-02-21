@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../../../auth";
 import { getUserDetails, getUserIndividuals, addIndividual } from "../services/userService";//added
 import UserDashboard from "../components/UserDashboard";
+import {toast} from "react-hot-toast";
 
 const UserDashboardContainer = () => {
   const { userId, token } = useAuth();

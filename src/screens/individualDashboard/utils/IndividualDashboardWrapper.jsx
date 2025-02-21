@@ -3,7 +3,7 @@ import { useAuth } from "../../../auth";
 import IndividualDashboardContainer from "../containers/IndividualDashboardContainer";
 
 const IndividualDashboardWrapper = () => {
-  const { userId } = useAuth(); // Use the hook in a functional component
+  const { userId } = useAuth();
 
   return <IndividualDashboardContainer userId={userId} />;
 };

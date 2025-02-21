@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Navigate } from 'react-router-dom';
 import SignInComponent from '../components/SigninComponent';
 import { signInApi } from './api';
+import {toast} from 'react-hot-toast';
 
 
 class SignInContainer extends Component {
@@ -50,12 +51,12 @@ class SignInContainer extends Component {
       const response = await signInApi(this.state.email, this.state.password);
       if (response && response.access_token) {
         sessionStorage.setItem('access_token', response.access_token);
-        alert('Login successful!');
+        toast.success('Login successful!');
         this.setState({ isLoggedIn: true });
         window.location.replace('/userDashboard'); //forced
       }
     } catch (error) {
-      alert(error.message || 'Login failed.');
+      toast.error(error.message || 'Login failed.');
     }
   };
 
@@ -80,7 +81,7 @@ class SignInContainer extends Component {
         passwordError={this.state.passwordError}
         passwordErrorMessage={this.state.passwordErrorMessage}
       />
-      
+
     );
   }
 }

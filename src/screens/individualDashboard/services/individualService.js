@@ -59,11 +59,13 @@ export const verifyPan = async (userId, individualId, token) => {
   const response = await axios.post(`http://localhost:8080/api/users/${userId}/individuals/${individualId}/verify-pan`, {}, {
     headers: { Authorization: token }
   });
+  return response.data;
 }
 
 
 export const checkPanStatus = async (userId, individualId, token, id) => {
-  const response = await axios.get(`http://localhost:8080/api/users/${userId}/individuals/${individualId}/check-pan/{id}`, {
+  const response = await axios.get(`http://localhost:8080/api/users/${userId}/individuals/${individualId}/check-pan/${id}`, {
     headers: { Authorization: token }
   });
+  return response.data;
 }
