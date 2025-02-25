@@ -34,12 +34,12 @@ class SignUpContainer extends Component {
       usernameErrorMessage = 'Username must be at least 3 characters.';
     }
 
-    if (!this.state.email || !/\S+@\S+\.\S+/.test(this.state.email)) {
+    else if (!this.state.email || !/\S+@\S+\.\S+/.test(this.state.email)) {
       emailError = true;
       emailErrorMessage = 'Invalid email address.';
     }
   
-    if (!this.state.password || this.state.password.length < 6) {
+    else if (!this.state.password || this.state.password.length < 6) { //added both the else ifs here
       passwordError = true;
       passwordErrorMessage = 'Password must be at least 6 characters.';
     }
@@ -49,6 +49,7 @@ class SignUpContainer extends Component {
     return !(usernameError || emailError || passwordError);
   };
   
+
 
   handleSubmit = async (event) => {
     event.preventDefault();

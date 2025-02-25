@@ -24,15 +24,23 @@ const IndividualDashboard = ({ individual, loading, error, onOnboard, onVerifyGD
   };
 
   return (
-    <Container maxWidth="lg" className="mx-auto mt-4 h-full">
-      <Typography variant="h4"
+
+    
+
+    <Container maxWidth="lg" className="mx-auto mt-4 h-screen">
+      {/* {alert} */}
+      <Box className=" flex items-center justify-between mt-10 py-6 px-4 md:px-8 bg-[#f5f7fa] shadow-md rounded-lg ">
+        <Typography variant="h4"
           fontWeight="bold"
-          className="text-[#2c9595] pt-3 drop-shadow-sm">{individual ? `Individual - ${individual.name}'s Dashboard` : 'Individual-Dashboard '}</Typography>
+          className="text-[#2c9595] pt-3 drop-shadow-sm">{individual ? `Individual - ${individual.name}'s Dashboard` : 'Individual-Dashboard '}
+        </Typography>
+      </Box>
+
 
       <Box className='flex flex-auto mx-auto gap-x-6'>
         {/* Left Section: Individual Details */}
-        <Box mt={3} sx={{ flex: 1, p: 3, bgcolor: 'white', borderRadius: 2, boxShadow: 2 }}>
-          <Typography variant="h6" fontWeight="bold">Individual Details</Typography>
+        <Box mt={3} sx={{ flex: 1, p: 3, borderRadius: 2, boxShadow: 2 }} className="bg-[#f5f7fa]">
+          <Typography variant="h6" fontWeight="bold" className="text-[#2c9595]">Individual Details</Typography>
           {individual && (
             <Card sx={{ boxShadow: 3, p: 2 }}>
               <CardContent>
@@ -52,8 +60,8 @@ const IndividualDashboard = ({ individual, loading, error, onOnboard, onVerifyGD
         </Box>
 
         {/* verification list cards */}
-        <Box mt={3} sx={{ flex: 1, p: 3, bgcolor: 'white', borderRadius: 2, boxShadow: 2 }}>
-          <Typography variant="h6" fontWeight="bold">List Of Verifications Initiated:</Typography>
+        <Box mt={3} sx={{ flex: 1, p: 3, borderRadius: 2, boxShadow: 2 }} className="bg-[#f5f7fa]">
+          <Typography variant="h6" fontWeight="bold" className="text-[#2c9595]">List Of Verifications Initiated:</Typography>
           {individual && verificationArray && verificationArray.length > 0 ? (
             verificationArray.map((detail, index) => (
               <Card key={index} sx={{ boxShadow: 3, p: 2, mt: 2 }}>
@@ -62,7 +70,7 @@ const IndividualDashboard = ({ individual, loading, error, onOnboard, onVerifyGD
                   <Typography><strong>Status: </strong> {detail.state}</Typography>
                   {/* <Typography><strong>Request ID: </strong> {detail.requestId}</Typography> */}
                   {/* {detail.date && <Typography><strong>Date:</strong> {new Date(detail.date).toLocaleDateString()}</Typography>} */}
-                  <Button variant="contained" color="success" fullWidth sx={{ mt: 2, bgcolor: '#34cccc', color: 'white', '&:hover': { bgcolor: '#2c9595' } }}  onClick={detail.offeringType === "GDC" ? () => onCheckStatus(detail.id) : () => onCheckPanStatus(detail.id)}>
+                  <Button variant="contained" color="success" fullWidth sx={{ mt: 2, bgcolor: '#34cccc', color: 'white', transition: '0.3s', '&:hover': { bgcolor: '#2c9595', transform: 'scale(1.05)' } }} onClick={detail.offeringType === "GDC" ? () => onCheckStatus(detail.id) : () => onCheckPanStatus(detail.id)}>
                     {detail.state === "Completed" ? "View Report" : "Check Status"}
                   </Button>
 
@@ -76,24 +84,24 @@ const IndividualDashboard = ({ individual, loading, error, onOnboard, onVerifyGD
 
 
         {/* Right Section: Actions */}
-        <Box mt={3} sx={{ flex: 1, p: 3, bgcolor: 'white', borderRadius: 2, boxShadow: 2 }}>
-          <Typography variant="h6" fontWeight="bold">Actions</Typography>
-          <Button variant="contained" color="primary" fullWidth sx={{ mt: 2, bgcolor: '#34cccc', color: 'white', '&:hover': { bgcolor: '#2c9595' } }} onClick={onOnboard}>
+        <Box mt={3} sx={{ flex: 1, p: 3, borderRadius: 2, boxShadow: 2 }} className="bg-[#f5f7fa]">
+          <Typography variant="h6" fontWeight="bold" className="text-[#2c9595]">Actions</Typography>
+          <Button variant="contained" color="primary" fullWidth sx={{ mt: 2, bgcolor: '#34cccc', color: 'white', transition: '0.3s', '&:hover': { bgcolor: '#2c9595', transform: 'scale(1.05)' } }} onClick={onOnboard}>
             Onboard Individual
           </Button>
-          <Button variant="contained" color="secondary" fullWidth sx={{ mt: 2, bgcolor: '#34cccc', color: 'white', '&:hover': { bgcolor: '#2c9595' } }} onClick={onVerifyGDC}>
+          <Button variant="contained" color="secondary" fullWidth sx={{ mt: 2, bgcolor: '#34cccc', color: 'white', transition: '0.3s', '&:hover': { bgcolor: '#2c9595', transform: 'scale(1.05)' } }} onClick={onVerifyGDC}>
             Verify GDC
           </Button>
 
-          <Button variant="contained" color="primary" fullWidth sx={{ mt: 2, bgcolor: '#34cccc', color: 'white', '&:hover': { bgcolor: '#2c9595' } }} onClick={handleAddPanClick}>
+          <Button variant="contained" color="primary" fullWidth sx={{ mt: 2, bgcolor: '#34cccc', color: 'white', transition: '0.3s', '&:hover': { bgcolor: '#2c9595', transform: 'scale(1.05)' } }} onClick={handleAddPanClick}>
             Add PAN
           </Button>
 
-          <Button variant="contained" color="secondary" fullWidth sx={{ mt: 2, bgcolor: '#34cccc', color: 'white', '&:hover': { bgcolor: '#2c9595' } }} onClick={onVerifyPan}>
+          <Button variant="contained" color="secondary" fullWidth sx={{ mt: 2, bgcolor: '#34cccc', color: 'white', transition: '0.3s', '&:hover': { bgcolor: '#2c9595', transform: 'scale(1.05)' } }} onClick={onVerifyPan}>
             Verify PAN
           </Button>
 
-          {/* <Button variant="contained" color="error" fullWidth sx={{ mt: 2, bgcolor: '#e57373', color: 'white', '&:hover': { bgcolor: '#2c9595' } }} onClick={onDeleteIndividual}>
+          {/* <Button variant="contained" color="error" fullWidth sx={{ mt: 2, bgcolor: '#e57373', color: 'white', transition: '0.3s', '&:hover': { bgcolor: '#2c9595', transform: 'scale(1.05)' } }} onClick={onDeleteIndividual}>
             Delete Individual
           </Button> */}
           {status && (
@@ -105,7 +113,7 @@ const IndividualDashboard = ({ individual, loading, error, onOnboard, onVerifyGD
       </Box>
 
       <Dialog open={isDialogOpen} onClose={onCloseDialog} fullWidth maxWidth="sm">
-        <DialogTitle>Verification Status</DialogTitle>
+        <DialogTitle className="text-[#2c9595] font-bold">Verification Status</DialogTitle>
         <DialogContent>
           {statusDetails && (
             <>
@@ -129,10 +137,10 @@ const IndividualDashboard = ({ individual, loading, error, onOnboard, onVerifyGD
                 <Typography>
                   <strong>Report: </strong>
                   <a
-                    className="bg-[#90d5ff] hover:bg-[#111184] p-1 text-white rounded-sm"
+                    className="bg-[#48e84a] hover:bg-[#318846] p-1 text-white rounded-sm"
                     href={statusDetails.gdcReport?.pdfServingUrl || statusDetails.panReport?.pdfServingUrl}
                   >
-                    Download Report
+                    View Report
                   </a>
                 </Typography>
               )}
@@ -146,7 +154,7 @@ const IndividualDashboard = ({ individual, loading, error, onOnboard, onVerifyGD
       </Dialog>
 
       <Dialog open={isPanDialogOpen} onClose={handlePanDialogClose}>
-        <DialogTitle>Add PAN</DialogTitle>
+        <DialogTitle className="text-[#2c9595] font-bold">Add PAN</DialogTitle>
         <DialogContent>
           <TextField
             margin="dense"

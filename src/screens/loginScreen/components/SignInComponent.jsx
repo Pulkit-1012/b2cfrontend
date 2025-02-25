@@ -4,7 +4,7 @@ import bgImage from '../../../assets/91675.jpg'
 
 const SignInComponent = ({ email, onEmailChange, password, onPasswordChange, handleSubmit, emailError, validateInputs, emailErrorMessage, passwordError, passwordErrorMessage }) => {
   return (
-    <Stack spacing={3} alignItems="center" justifyContent="center" maxWidth='100%' sx={{ height: '100vh', overflow: 'hidden', backgroundImage: `url(${bgImage})` }}>
+    <Stack spacing={3} alignItems="center" justifyContent="center" maxWidth='100%' className='bg-[#f5f7fa]' sx={{ height: '100vh', overflow: 'hidden' }}>
       <Card variant="outlined" sx={{ p: 4, width: 400, boxShadow: 3 }}>
         <Typography variant="h4" textAlign="center" gutterBottom>Sign In</Typography>
 

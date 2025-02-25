@@ -31,7 +31,7 @@ class SignInContainer extends Component {
       emailErrorMessage = 'Invalid email address.';
     }
 
-    if (!this.state.password || this.state.password.length < 6) {
+    else if (!this.state.password || this.state.password.length < 6) {//changed from if to else if
       passwordError = true;
       passwordErrorMessage = 'Password must be at least 6 characters.';
     }

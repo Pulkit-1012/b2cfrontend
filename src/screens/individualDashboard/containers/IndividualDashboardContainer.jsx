@@ -3,7 +3,10 @@ import { getIndividualDetails, onboardIndividual, verifyGDC, checkStatus, delete
 import { addPan, verifyPan } from "../services/individualService";
 import dateConverter from "../services/dateConverter";
 import IndividualDashboard from "../components/IndividualDashboard";
-import {toast} from "react-hot-toast"
+import { toast } from "react-hot-toast"
+import Alert from '@mui/material/Alert';
+import CheckIcon from '@mui/icons-material/Check';
+import ShowAlerts from "../../../shared/alerts/ShowAlerts";
 
 class IndividualDashboardContainer extends Component {
   constructor(props) {
@@ -16,6 +19,7 @@ class IndividualDashboardContainer extends Component {
       isDialogOpen: false,
       loading: false,
       error: null,
+      // alert: null, //added
     };
   }
 
@@ -35,8 +39,11 @@ class IndividualDashboardContainer extends Component {
     try {
       const response = await getIndividualDetails(userId, individualId, token);
       this.setState({ individual: response, loading: false });
+      this.setState({ alert: ShowAlerts(`Successfully fetched the ${individual.name}'s details.`, "success")});
     } catch (error) {
-      this.setState({ error: "Failed to fetch individual details", loading: false });
+      // this.setState({ alert: ShowAlerts(
+      //   "Failed to fetch individual details", "error"
+      // ) });
     }
   };
 
@@ -48,8 +55,20 @@ class IndividualDashboardContainer extends Component {
       const response = await onboardIndividual(userId, individualId, token);
       localStorage.setItem("onGridIndividualId", response.id);//added
       toast.success("Individual onboarded successfully!");
+      // this.setState({
+      //   alert: ShowAlerts(
+      //     "Indiviual onboarded succesfully!!", "success"
+      //   )
+      // })
+
     } catch (error) {
       toast.error("Individual is already onboarded!");
+      // this.setState({
+      //   alert: ShowAlerts(
+      //     "Individual is already onboarded!",
+      //     "error"
+      //   )
+      // })
     }
   };
 
@@ -60,10 +79,22 @@ class IndividualDashboardContainer extends Component {
     try {
       const response = await verifyGDC(userId, individualId, token);
       toast.success("GDC verification started!");
+      // this.setState({
+      //   alert: ShowAlerts(
+      //     "Request for GDC Verification initiated!",
+      //     "success"
+      //   )
+      // })
     } catch (error) {
       toast.error("Already initiated!");
+      // this.setState({
+      //   alert: ShowAlerts(
+      //     "Already initiated, please wait for the result!",
+      //     "info"
+      //   )
+      // })
     }
-    
+
   };
 
   handleCheckStatus = async (id) => {
@@ -73,9 +104,15 @@ class IndividualDashboardContainer extends Component {
 
     try {
       const response = await checkStatus(userId, individualId, token, id);
-      this.setState({statusDetails: response, isDialogOpen: true})
+      this.setState({ statusDetails: response, isDialogOpen: true })
     } catch (error) {
       toast.error("Failed to check status.");
+      // this.setState({
+      //   alert: ShowAlerts(
+      //     "Failed to check status.", 
+      //     "error"
+      //   )
+      // })
     }
   };
 
@@ -87,8 +124,20 @@ class IndividualDashboardContainer extends Component {
     try {
       await deleteIndividual(userId, token, individualId);
       toast.success("Individual deleted successfully!")
+      // this.setState({
+      //   alert: ShowAlerts(
+      //     "Individual deleted successfully!",
+      //     "success"
+      //   )
+      // })
     } catch (error) {
       toast.error("Failed to delete individual.");
+      // this.setState({
+      //   alert: ShowAlerts(
+      //     "Failed to delete individual.",
+      //     "error"
+      //   )
+      // })
     }
   };
 
@@ -96,19 +145,31 @@ class IndividualDashboardContainer extends Component {
     this.setState({ isDialogOpen: false });
   };
 
-  
+
   fetchVerifications = async () => {
-    const {userId} = this.props;
+    const { userId } = this.props;
     const token = sessionStorage.getItem("access_token");
     const individualId = localStorage.getItem("selectedIndividualId");
 
     try {
       const verificationArray = await getVerificationList(userId, individualId, token);
-      this.setState({verificationArray});
+      this.setState({ verificationArray });
       toast.success("Details fetched successfully");
+      // this.setState({
+      //   alert: ShowAlerts(
+      //     "Details fetched successfully.",
+      //     "success"
+      //   )
+      // })
     }
-    catch(error) {
+    catch (error) {
       toast.error("Failed to fetch the verifications!");
+      // this.setState({
+      //   alert: ShowAlerts(
+      //     "Failed to fetch the verifications.",
+      //     "error"
+      //   )
+      // })
     }
   }
 
@@ -117,15 +178,27 @@ class IndividualDashboardContainer extends Component {
     const { userId } = this.props;
     const token = sessionStorage.getItem("access_token");
     const individualId = localStorage.getItem("selectedIndividualId");
-    
+
     try {
       await addPan(userId, individualId, token, {
         nameAsPerDocument: this.state.individual.name,
         documentUID
       });
       toast.success("PAN added successfully!");
+      // this.setState({
+      //   alert: ShowAlerts(
+      //     "",
+      //     ""
+      //   )
+      // })
     } catch (error) {
       toast.error("PAN is already added!");
+      // this.setState({
+      //   alert: ShowAlerts(
+      //     "",
+      //     ""
+      //   )
+      // })
     }
   };
 
@@ -133,12 +206,24 @@ class IndividualDashboardContainer extends Component {
     const { userId } = this.props;
     const token = sessionStorage.getItem("access_token");
     const individualId = localStorage.getItem("selectedIndividualId");
-    
+
     try {
       await verifyPan(userId, individualId, token);
       toast.success("PAN verification initiated!");
+      // this.setState({
+      //   alert: ShowAlerts(
+      //     "",
+      //     ""
+      //   )
+      // })
     } catch (error) {
       toast.error("Already initiated!");
+      // this.setState({
+      //   alert: ShowAlerts(
+      //     "",
+      //     ""
+      //   )
+      // })
     }
   };
 
@@ -150,15 +235,23 @@ class IndividualDashboardContainer extends Component {
 
     try {
       const response = await checkPanStatus(userId, individualId, token, id);
-      this.setState({statusDetails: response, isDialogOpen: true});
+      this.setState({ statusDetails: response, isDialogOpen: true });
     }
-    catch(error){
+    catch (error) {
       toast.error("Failed to check status!");
+      // this.setState({
+      //   alert: ShowAlerts(
+      //     "",
+      //     ""
+      //   )
+      // })
     }
   };
 
 
   render() {
+  
+
     return (
       <IndividualDashboard
         individual={this.state.individual}
@@ -178,6 +271,7 @@ class IndividualDashboardContainer extends Component {
         onVerifyPan={this.handleVerifyPan}
         onCheckPanStatus={this.handleCheckPANStatus}
         dateConverter={dateConverter}
+        // alert={this.state.alert}
       />
 
     );

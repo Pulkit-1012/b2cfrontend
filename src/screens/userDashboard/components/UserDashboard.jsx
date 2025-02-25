@@ -58,7 +58,7 @@ const UserDashboard = ({ user, individuals, onAddIndividual }) => {
 
   return (
     // <Container maxWidth="md" sx={{ mt: 4, height: '100vh' }}>
-    <Container maxWidth="md" className="mt-4 max-h-full">
+    <Container maxWidth="md" className="mt-4 h-screen">
       
       <Box className="flex items-center justify-between mt-10 py-6 px-4 md:px-8 bg-[#f5f7fa] shadow-md rounded-lg">
         <Typography
@@ -71,9 +71,9 @@ const UserDashboard = ({ user, individuals, onAddIndividual }) => {
       </Box>
 
 
-      <Stack direction={{ xs: 'column', md: 'row' }} spacing={4} className="p-4">
+      <Stack direction={{ xs: 'column', md: 'row' }} spacing={4} className="p-4 ">
         {/* User Details Section */}
-        <Box sx={{ flex: 1, p: 3, bgcolor: 'white', borderRadius: 2, boxShadow: 2 }}>
+        <Box sx={{ flex: 1, p: 3, borderRadius: 2, boxShadow: 2 }} className="bg-[#f5f7fa]">
           <Typography variant="h6" fontWeight="bold" gutterBottom className="text-[#2c9595]">
             User Details
           </Typography>
@@ -92,7 +92,7 @@ const UserDashboard = ({ user, individuals, onAddIndividual }) => {
         </Box>
 
         {/* Individuals Section */}
-        <Box sx={{ flex: 1, p: 3, bgcolor: 'white', borderRadius: 2, boxShadow: 2 }}>
+        <Box sx={{ flex: 1, p: 3, borderRadius: 2, boxShadow: 2 }} className="bg-[#f5f7fa]">
           <Typography variant="h6" fontWeight="bold" gutterBottom className="text-[#2c9595]">
             Individuals
           </Typography>
@@ -125,7 +125,8 @@ const UserDashboard = ({ user, individuals, onAddIndividual }) => {
               p: 1.5,
               fontSize: '1rem',
               transition: '0.3s',
-              '&:hover': { bgcolor: '#2c9595', transform: 'scale(1.05)' },
+              '&:hover': { bgcolor: '#2c9595', transform: 'scale(1.05)'
+              },
             }}
             onClick={handleOpen}
           >

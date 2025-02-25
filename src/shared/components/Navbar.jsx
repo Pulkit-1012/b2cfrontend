@@ -41,7 +41,7 @@ const Navbar = () => {
                   mx: 1,
                   bgcolor: isActive("/signup") ? "#33cccc" : "white",
                   color: isActive("/signup") ? "white" : "#33cccc",
-                  "&:hover": { bgcolor: "#339ea4" },
+                  "&:hover": { bgcolor: "#339ea4", color: "white" },
                 }}>
                 Signup
               </Button>
@@ -53,7 +53,7 @@ const Navbar = () => {
                   mx: 1,
                   bgcolor: isActive("/signin") ? "#33cccc" : "white",
                   color: isActive("/signin") ? "white" : "#33cccc",
-                  "&:hover": { bgcolor: "#339ea4" },
+                  "&:hover": { bgcolor: "#339ea4", color: "white" },
                 }}>
                 Signin
               </Button>
